@@ -54,10 +54,14 @@ const login = async () => {
                     <input type="password" id="password" class="mt-1 p-2 w-full border border-gray-300 rounded-md text-gray-900" v-model="password" placeholder="Enter your password" required />
                 </div>
 
-                <button type="submit" class="mt-4 w-full py-2 bg-blue-800 rounded-md hover:bg-blue-600 transition duration-200">Login</button>
-            </form>
+                <p v-if="errorMessage" class="text-red-500 mt-4 text-center">{{ errorMessage }}</p>
 
-            <p v-if="errorMessage" class="text-red-500 mt-4 text-center">{{ errorMessage }}</p>
+                <button type="submit" class="mt-4 w-full py-2 bg-blue-800 rounded-md hover:bg-blue-600 transition duration-200">Login</button>
+
+                <div class="text-center mt-4">
+                    <p>Don't have an account? <button @click="router.push('/signup')" class="text-blue-600 hover:text-blue-800">Sign Up</button></p>
+                </div>
+            </form>
         </div>
     </div>
 </template>
