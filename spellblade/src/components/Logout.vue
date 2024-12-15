@@ -1,10 +1,10 @@
 <script setup>
-import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router'
 
-const router = useRouter();
+const router = useRouter()
 
 try {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token')
 
     const response = await fetch('http://localhost:8000/api/logout/', {
         method: 'POST',
@@ -12,12 +12,12 @@ try {
             'Content-Type': 'application/json',
             'Authorization': `Token ${token}`,
         },
-    });
+    })
 
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
 
-    router.push('/login');
+    router.push('/login')
 } catch (error) {}
 
 </script>
