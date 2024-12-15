@@ -44,7 +44,7 @@ const signup = async () => {
 
 <template>
     <div class="flex items-center justify-center min-h-screen">
-        <div class="w-full max-w-md p-6 text-white">
+        <div class="w-full max-w-md p-6">
             <h2 class="text-4xl font-semibold text-center mb-4">Sign Up</h2>
 
             <form @submit.prevent="signup">
@@ -70,7 +70,7 @@ const signup = async () => {
 
 <p v-if="errorMessage" class="text-red-500 mt-4 text-center">{{ errorMessage }}</p>
 
-                <button type="submit" class="mt-4 w-full py-2 bg-blue-800 rounded-md hover:bg-blue-600 transition duration-200">Sign Up</button>
+                <button type="submit" class="mt-4 w-full py-2 bg-blue-800 rounded-md hover:bg-blue-600 transition duration-200 text-white">Sign Up</button>
 
                 <div class="text-center mt-4">
                     <p>Already have an account? <button @click="router.push('/login')" class="text-blue-600 hover:text-blue-800">Login</button></p>

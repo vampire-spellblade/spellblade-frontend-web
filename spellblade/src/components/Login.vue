@@ -27,7 +27,7 @@ const login = async () => {
     if (response.ok) {
         localStorage.setItem('token', data.user.token)
         localStorage.setItem('user', JSON.stringify({
-            email: data.email,
+            email: data.user.email,
             first_name: data.user.first_name,
             last_name: data.user.last_name,
         }))
@@ -40,7 +40,7 @@ const login = async () => {
 
 <template>
     <div class="flex items-center justify-center min-h-screen">
-        <div class="w-full max-w-md p-6 text-white">
+        <div class="w-full max-w-md p-6">
             <h2 class="text-4xl font-semibold text-center mb-4">Login</h2>
 
             <form @submit.prevent="login">
@@ -56,7 +56,7 @@ const login = async () => {
 
                 <p v-if="errorMessage" class="text-red-500 mt-4 text-center">{{ errorMessage }}</p>
 
-                <button type="submit" class="mt-4 w-full py-2 bg-blue-800 rounded-md hover:bg-blue-600 transition duration-200">Login</button>
+                <button type="submit" class="mt-4 w-full py-2 bg-blue-800 rounded-md hover:bg-blue-600 transition duration-200 text-white">Login</button>
 
                 <div class="text-center mt-4">
                     <p>Don't have an account? <button @click="router.push('/signup')" class="text-blue-600 hover:text-blue-800">Sign Up</button></p>
