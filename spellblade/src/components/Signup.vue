@@ -5,7 +5,8 @@ import { useRouter } from 'vue-router'
 const first_name = ref('')
 const last_name = ref('')
 const email = ref('')
-const password = ref('')
+const password1 = ref('')
+const password2 = ref('')
 const errorMessage = ref('')
 
 const router = useRouter()
@@ -13,31 +14,35 @@ const router = useRouter()
 const signup = async () => {
     errorMessage.value = ''
 
-    const response = await fetch('http://localhost:8000/api/signup/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            first_name: first_name.value,
-            last_name: last_name.value,
-            email: email.value,
-            password: password.value,
-        }),
-    })
-
-    const data = await response.json()
-
-    if (response.ok) {
-        localStorage.setItem('token', data.user.token)
-        localStorage.setItem('user', JSON.stringify({
-            email: data.user.email,
-            first_name: data.user.first_name,
-            last_name: data.user.last_name,
-        }))
-        router.push('/dashboard')
+    if (password1.value !== password2.value) {
+        errorMessage.value = 'Passwords do not match.'
     } else {
-        errorMessage.value = data.error
+        const response = await fetch('http://localhost:8000/api/signup/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                first_name: first_name.value,
+                last_name: last_name.value,
+                email: email.value,
+                password: password1.value,
+            }),
+        })
+
+        const data = await response.json()
+
+        if (response.ok) {
+            localStorage.setItem('spellblade-token', data.user.token)
+            localStorage.setItem('spellblade-user', JSON.stringify({
+                email: data.user.email,
+                first_name: data.user.first_name,
+                last_name: data.user.last_name,
+            }))
+            router.push('/dashboard')
+        } else {
+            errorMessage.value = data.error
+        }
     }
 }
 </script>
@@ -64,11 +69,16 @@ const signup = async () => {
                 </div>
 
                 <div class="mb-4">
-                    <label for="password" class="block font-medium">Password</label>
-                    <input type="password" id="password" class="mt-1 p-2 w-full border border-gray-300 rounded-md text-gray-900" v-model="password" placeholder="Enter your password" required />
+                    <label for="password1" class="block font-medium">Password</label>
+                    <input type="password" id="password1" class="mt-1 p-2 w-full border border-gray-300 rounded-md text-gray-900" v-model="password1" placeholder="Enter your password" required />
                 </div>
 
-<p v-if="errorMessage" class="text-red-500 mt-4 text-center">{{ errorMessage }}</p>
+                <div class="mb-4">
+                    <label for="password2" class="block font-medium">Confirm Password</label>
+                    <input type="password" id="password2" class="mt-1 p-2 w-full border border-gray-300 rounded-md text-gray-900" v-model="password2" placeholder="Enter your password" required />
+                </div>
+
+                <p v-if="errorMessage" class="text-red-500 mt-4 text-center">{{ errorMessage }}</p>
 
                 <button type="submit" class="mt-4 w-full py-2 bg-blue-800 rounded-md hover:bg-blue-600 transition duration-200 text-white">Sign Up</button>
 

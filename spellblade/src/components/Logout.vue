@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 try {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('spellblade-token')
 
     const response = await fetch('http://localhost:8000/api/logout/', {
         method: 'POST',
@@ -14,8 +14,8 @@ try {
         },
     })
 
-    localStorage.removeItem('token')
-    localStorage.removeItem('user')
+    localStorage.removeItem('spellblade-token')
+    localStorage.removeItem('spellblade-user')
 
     router.push('/login')
 } catch (error) {}
